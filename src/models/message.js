@@ -8,7 +8,7 @@ const messageScehema = new Schema({
     subject: {
         type: String
     },
-    msj: {
+    msg: {
         type: String
     },
     state: {

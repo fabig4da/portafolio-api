@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { expressValidatorErrors } = require('../middlewares/globals');
+const { expressValidatorErrors, loadImage } = require('../middlewares/globals');
 const techController = require('../controllers/tech');
 
 const techRoutes = Router();
@@ -12,11 +12,12 @@ techRoutes.post('/',
         check('name', 'name is required').notEmpty().isString(),
         check('color', 'color is required').notEmpty().isString(),
         // check('img', 'img is required').notEmpty().isString(),
-        expressValidatorErrors
+        expressValidatorErrors,
+        loadImage
 
     ],
     techController.create);
-techRoutes.put('/:tid', techController.edit);
+techRoutes.put('/:tid', [loadImage], techController.edit);
 techRoutes.delete('/:tid', techController.delete);
 techRoutes.put('/restore/:tid', techController.restore);
 techRoutes.put('/img/:tid', techController.editImage);

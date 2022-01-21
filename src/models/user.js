@@ -1,6 +1,7 @@
 const {model, Schema} = require('mongoose');
+const { encodePassword } = require('../utils/encript.password');
 
-const userScehema = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -34,9 +35,17 @@ const userScehema = new Schema({
         type: String
     },
     rol: {
-        type: String
+        type: String,
+        default: 'OWNER'
     }
     
 });
+userSchema.pre('save', async function (next) {
+    if (this.isModified('password')) {
+        const password = encodePassword(this.get('password'));
+        this.set('password', password);
+    }
+    next();
+})
 
-module.exports= model('user', userScehema);
+module.exports= model('user', userSchema);

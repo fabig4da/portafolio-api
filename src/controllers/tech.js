@@ -38,10 +38,12 @@ const techController = {
     edit: async(req, res)=>{
         const {tid} = req.params;
         const {body} = req;
+        console.log(body)
         try {
         const tech = await techRepository.edit(tid,body);
             succesfulResponse(res, tech);
         } catch (error) {
+            console.log(error)
             unSuccesfulResponse(res);
         }
     },

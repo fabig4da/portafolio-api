@@ -1,21 +1,20 @@
 const sgMail = require('@sendgrid/mail');
 
 
-const emailValidationAccount = async (hash, email) => {
+const sendEmail = async (subject, message, email) => {
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY || '')
   const msg = {
-    to: email, // Change to your recipient
-    from: 'cfgarcesg@unipacifico.edu.co', // Change to your verified sender
-    subject: 'Verify your account',
-    text: 'You have created a new account in Shop XXX',
+    to: 'fabig4da@gmail.com',
+    from: 'cfgarcesg@unipacifico.edu.co',
+    subject,
+    text: 'Someone is trying to contact you',
     html: `<div>
-            <h3>Account verification</h3>
-            <p>Click in the button below to verify your account</p>
-            <a href="http://localhost:5000/auth/verify/${hash}">Verify account</a>
+            <h3>${email} says:</h3>
+            <p>${message}</p>
         </div>`,
   }
   return await sgMail.send(msg)
 }
 
-module.exports = {emailValidationAccount};
+module.exports = {sendEmail};

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
  * @returns 
  */
  const genToken = (user) => {
-    const secret = process.env.SECRET_WORD_JWT || '';
+    const secret = process.env.SECRET_WORD_JWT;
     return jwt.sign(user, secret, { expiresIn: 60 * 60 });
 }
 
@@ -15,6 +15,8 @@ const jwt = require('jsonwebtoken');
  * @returns 
  */
 const verifyToken = (token) => {
-    const secret = process.env.SECRET_WORD_JWT || '';
+    const secret = process.env.SECRET_WORD_JWT;
     return jwt.verify(token, secret);
 }
+
+module.exports = {genToken, verifyToken}

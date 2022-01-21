@@ -8,6 +8,9 @@ const userRepository= {
     findDefault: async()=>{
         return await User.findOne({rol: 'OUWNER'});
     },
+    findByEmail: async(email)=>{
+        return await User.findOne({email});
+    },
     edit: async(uid, data)=>{
         return await User.findOneAndUpdate({_id:uid}, data);
     },
