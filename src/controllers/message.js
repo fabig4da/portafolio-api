@@ -24,7 +24,7 @@ const messageController = {
         const { body } = req;
         try {
             const messages = await messageRepository.create(body);
-            await sendEmail(body.subject, body.msg, body.email);
+            await sendEmail(body.subject, body.msg, body.email); // this line doesn't appear on the last commit
             succesfulResponse(res, messages);
         } catch (error) {
             console.log(error);
